@@ -1,0 +1,18 @@
+# 3. Scale up
+
+## Description
+This document outlines the architecture and specifics of a scaled-up, highly available web infrastructure hosting www.foobar.com with clustered load balancers and separated server tiers.
+
+## Infrastructure Components
+* **2 Load-balancers (HAProxy)** configured in a high-availability cluster.
+* **Dedicated Servers** separating components:
+  * Dedicated Web Server nodes (Nginx)
+  * Dedicated Application Server nodes
+  * Dedicated Database nodes (MySQL Primary-Replica cluster)
+
+## Additional Elements & Reasons
+* **Second Load-Balancer:** Added to ensure high availability and eliminate the load balancer as a Single Point of Failure (SPOF).
+* **Split Components (Dedicated Servers):** Web servers, application servers, and databases are separated onto independent servers to eliminate resource competition, optimize performance, and allow independent scaling.
+
+## Specifics & Explanations
+* **Workload Isolation:** Separating tiers ensures that heavy database queries or application computations do not starve the web server of resources (CPU, RAM, and I/O).

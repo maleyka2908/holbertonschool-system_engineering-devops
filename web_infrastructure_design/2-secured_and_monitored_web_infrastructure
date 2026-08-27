@@ -1,0 +1,27 @@
+# 2. Secured and monitored web infrastructure
+
+## Description
+This document outlines the architecture and specifics of a secured and monitored three-server web infrastructure hosting www.foobar.com.
+
+## Infrastructure Components
+* **1 Load-balancer (HAProxy)** with an SSL certificate.
+* **3 Firewalls** protecting the infrastructure nodes.
+* **3 Monitoring Clients** (data collectors) deployed across the servers.
+* **2 Servers** containing web servers, application servers, and databases in a Primary-Replica cluster.
+
+## Additional Elements & Reasons
+* **Firewalls:** Added to filter malicious traffic and secure network perimeters.
+* **SSL Certificate:** Added to encrypt user traffic via HTTPS.
+* **Monitoring Clients:** Added to track server health, metrics, and application performance.
+
+## Specifics & Explanations
+* **Firewall Purpose:** Filter incoming/outgoing traffic based on security rules.
+* **HTTPS Purpose:** Encrypts data-in-transit to protect sensitive user information.
+* **Monitoring Purpose:** Detect performance degradation, errors, and system failures proactively.
+* **Data Collection:** Monitoring agents gather system metrics/logs and report them to a centralized platform.
+* **Monitoring QPS:** Tracked by parsing web server access logs or utilizing server metrics modules to calculate requests per second.
+
+## Issues with this Infrastructure
+1. **SSL Termination at Load Balancer:** Internal traffic between the load balancer and backend servers is unencrypted HTTP.
+2. **Single Write Database:** Only one MySQL primary server handles writes, representing a performance bottleneck and SPOF.
+3. **Co-located Components:** Running the web server, app server, and database on the same servers causes resource contention and limits independent scalability.
